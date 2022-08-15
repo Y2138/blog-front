@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import leftBar from './components/leftBar.vue';
-import headerBar from './components/headerBar.vue';
-import footerBar from './components/footerBar.vue';
-import mainVue from './components/main.vue';
-import { ref } from 'vue'
-import { useStore } from '../../store'
-const count2 = useStore()
+import mainLeft from './components/mainLeft.vue';
+import mainRight from './components/mainRight.vue';
 </script>
 
 <template>
   <n-config-provider>
     <div class="main-body">
-      <left-bar></left-bar>
-      <div class="main-content">
-        <header-bar></header-bar>
-        <main-vue></main-vue>
-        <footer-bar></footer-bar>
-      </div>
+      <main-left class="body-left"></main-left>
+      <main-right></main-right>
     </div>
   </n-config-provider>
 </template>
@@ -27,10 +18,11 @@ const count2 = useStore()
   height: 100vh;
   width: 100vw;
   display: flex;
+  background-color: var(--background-dark);
+  color: var(--font-color);
 }
-.main-body .main-content {
+.main-body .body-left {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  min-width: 0;
 }
 </style>

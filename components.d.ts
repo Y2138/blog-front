@@ -10,6 +10,9 @@ declare module '@vue/runtime-core' {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NInput: typeof import('naive-ui')['NInput']
+    NScrollbar: typeof import('naive-ui')['NScrollbar']
+    NScrollBar: typeof import('naive-ui')['NScrollBar']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

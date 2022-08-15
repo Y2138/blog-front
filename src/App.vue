@@ -27,7 +27,7 @@ const globalTheme: GlobalTheme = {
   </n-config-provider>
 </template>
 
-<style>
+<style lang="scss">
 body {
   margin: 0;
 }

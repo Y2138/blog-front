@@ -1,1 +1,32 @@
+:root, :root[data-theme=dark] {
+  --font-color: #ffffff;
+  --font-gray-1: #c9ccd1;
+  --font-gray-2: #98999d;
+  --font-color-shallow: #696b72;
+  --background-shallow: #40424b;
+  --background-dark: #36373c;
+  --base-radius: 20px;
+  --color-pink: #eba1c0;
+  --color-blue: #98b2f9;
+}
+:root[data-theme=light] {
+  --font-color: #232429;
+  --font-gray-1: #9fa0a5;
+  --font-gray-2: #bdc0c3;
+  --font-color-shallow: #696b72;
+  --background-shallow: #fbfcfe;
+  --background-dark: #ffffff;
+  --base-radius: 20px;
+  --color-pink: #eba1c0;
+  --color-blue: #98b2f9;
+}
+
 $injectedColor: #29c1c2;
+
+div {
+  &.cbox {
+    border-radius: 20px;
+    background-color: var(--background-dark);
+    padding: 12px;
+  }
+}
