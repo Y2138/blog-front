@@ -1,13 +1,13 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-import test from './test'
+import mainDoc from './mainDoc'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/docs'
   },
-  ...test
+  ...mainDoc
 ]
 
 const router = createRouter({

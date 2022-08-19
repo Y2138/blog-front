@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref } from 'vue'
 import type { GlobalThemeOverrides, GlobalTheme } from 'naive-ui'
+import utilCom from './views/utilCom.vue';
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
@@ -22,8 +23,15 @@ const globalTheme: GlobalTheme = {
   <n-config-provider
     :theme="globalTheme"
     :theme-overrides="themeOverrides">
-    <router-view>
-    </router-view>
+    <n-message-provider>
+      <n-dialog-provider>
+        <n-notification-provider>
+          <util-com></util-com>
+          <router-view>
+          </router-view>
+        </n-notification-provider>
+      </n-dialog-provider>
+    </n-message-provider>
   </n-config-provider>
 </template>
 
