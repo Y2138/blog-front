@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useStore } from '@/store/themeStore'
 import DocTemplate from '@/views/docTemplate/index.vue';
 import eventEmitts from '@/utils/eventEmitter';
+import { post } from '@/utils/fetch';
 const { changeTheme } = useStore()
 const shrink = ref(false)
 const searchText = ref('这是搜索框')
@@ -15,6 +16,16 @@ const dialogFn = () => {
 const notificationFn = () => {
   eventEmitts.emit('$notification.error', { content: '这是notification', duration: 3000 })
 }
+const fetchFn = () => {
+  const param = {
+    pageIndex: 1,
+    pageSize: 10,
+    model: {}
+  }
+  post('/pcs/sos/v2/shops', { data: param }).then(res => {
+    console.log(res)
+  })
+}
 </script>
 
 <template>
@@ -26,6 +37,7 @@ const notificationFn = () => {
       <n-button @click="messageFn">message</n-button>
       <n-button @click="dialogFn">dialog</n-button>
       <n-button @click="notificationFn">notification</n-button>
+      <n-button @click="fetchFn">测试axios</n-button>
     </div>
     <div class="main-content">
       <div class="search">
