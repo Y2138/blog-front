@@ -1,0 +1,60 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2117988 */
+  src: url('iconfont.woff2?t=1661161711763') format('woff2'),
+       url('iconfont.woff?t=1661161711763') format('woff'),
+       url('iconfont.ttf?t=1661161711763') format('truetype');
+}
+
+[class^="iconfont"], [class*="iconfont"] {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  color: var(--color-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xingneng:before {
+  content: "\e653";
+}
+
+.icon-html:before {
+  content: "\e693";
+}
+
+.icon-css:before {
+  content: "\f187";
+}
+
+.icon-nodejsNodejsxingnengpingtai:before {
+  content: "\e729";
+}
+
+.icon-bxl-vuejs:before {
+  content: "\e700";
+}
+
+.icon-bilibili:before {
+  content: "\e6b4";
+}
+
+.icon-weibo:before {
+  content: "\e882";
+}
+
+.icon-wechat:before {
+  content: "\e6ca";
+}
+
+.icon-QQ:before {
+  content: "\e667";
+}
+
+.icon-bilibili-line:before {
+  content: "\eeac";
+}
+
+.icon-bilibili-fill:before {
+  content: "\e652";
+}
+

@@ -29,6 +29,8 @@
 header, main, footer {
   border-radius: 20px;
   background-color: var(--background-dark);
+  box-shadow: var(--shadow-dark);
+  transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
   padding: 12px;
 }
 .header {

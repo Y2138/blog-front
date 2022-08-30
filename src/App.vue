@@ -7,21 +7,13 @@ import utilCom from './views/utilCom.vue';
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: '#29c1c2'
+    primaryColor: '#4c8dae',
   },
-  Button: {
-    textColor: '#29c1c2',
-    textColorPressed: '#29c1c2',
-  }
-}
-const globalTheme: GlobalTheme = {
-  name: 'yzz'
 }
 </script>
 
 <template>
   <n-config-provider
-    :theme="globalTheme"
     :theme-overrides="themeOverrides">
     <n-message-provider>
       <n-dialog-provider>

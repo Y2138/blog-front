@@ -32,18 +32,35 @@ const fetchFn = () => {
   <!-- 头、面包屑、刷新按钮 -->
   <div class="main-left-wrap">
     <div :class="['main-left', { 'is-shrink': shrink }]">
-      <n-button @click="shrink = !shrink">收缩</n-button>
-      <n-button @click="changeTheme">切换</n-button>
-      <n-button @click="messageFn">message</n-button>
-      <n-button @click="dialogFn">dialog</n-button>
-      <n-button @click="notificationFn">notification</n-button>
-      <n-button @click="fetchFn">测试axios</n-button>
+      <ul>
+        <li>
+          <i class="iconfont icon-html"></i>
+          <n-button @click="shrink = !shrink">收缩</n-button>
+        </li>
+        <li>
+          <i class="iconfont icon-css"></i>
+          <n-button @click="changeTheme">切换</n-button>
+        </li>
+        <li>
+          <i class="iconfont nodejsNodejsxingnengpingtai"></i>
+          <n-button @click="messageFn">message</n-button>
+        </li>
+        <li>
+          <i class="iconfont icon-bxl-vuejs"></i>
+          <n-button @click="dialogFn">dialog</n-button>
+        </li>
+        <li>
+          <n-button @click="notificationFn">notification</n-button>
+        </li>
+        <li>
+          <n-button @click="fetchFn">测试axios</n-button>
+        </li>
+      </ul>
     </div>
     <div class="main-content">
       <div class="search">
         <n-input v-model="searchText"></n-input>
       </div>
-      <router-view></router-view>
       <doc-template></doc-template>
     </div>
   </div>
@@ -66,20 +83,31 @@ const fetchFn = () => {
   padding: 32px 20px 36px;
   transition: all .3s ease-out;
   background-color: var(--background-shallow);
-  border-top-right-radius: 12% 10%;
-  border-bottom-right-radius: 12% 10%;
+  border-top-right-radius: 12%;
+  border-bottom-right-radius: 12%;
   display: flex;
+  box-shadow: var(--shadow-dark);
   .main-left {
     width: 83px;
     border-radius: 40px;
     padding: 12px;
-    display: flex;
     background-color: var(--background-dark);
-    align-items: center;
-    flex-direction: column;
     transition: all .3s ease-in;
+    box-shadow: var(--shadow-dark);
     &.is-shrink {
       width: 166px;
+    }
+    ul {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      list-style: none;
+      margin: 0px;
+      padding: 12px 0;
+      li {
+        flex: 1;
+        min-height: 40px;
+      }
     }
   }
   .main-content {
