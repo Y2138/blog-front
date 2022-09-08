@@ -7,7 +7,7 @@ const instance: AxiosInstance = axios.create({
     "Content-Type": "application/json;charset=UTF-8",
   },
   // TODO 本地测试
-  baseURL: 'https://ngw.qa.enmonster.com',
+  baseURL: 'http://localhost:3000',
   timeout: 5000,
 })
 instance.interceptors.request.use((config: AxiosRequestConfig<BasicReqDataModel>) => {

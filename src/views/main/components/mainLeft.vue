@@ -16,15 +16,21 @@ const dialogFn = () => {
 const notificationFn = () => {
   eventEmitts.emit('$notification.error', { content: '这是notification', duration: 3000 })
 }
-const fetchFn = () => {
-  const param = {
-    pageIndex: 1,
-    pageSize: 10,
-    model: {}
-  }
-  post('/pcs/sos/v2/shops', { data: param }).then(res => {
-    console.log(res)
+const artList = ref([])
+const findArticle = () => {
+  post('/article/getArticle/list', {}).then(res => {
+    console.log('res', res)
+    const { model } = res
+    artList.value = model || []
   })
+  // const param = {
+  //   pageIndex: 1,
+  //   pageSize: 10,
+  //   model: {}
+  // }
+  // post('/pcs/sos/v2/shops', { data: param }).then(res => {
+  //   console.log(res)
+  // })
 }
 </script>
 
@@ -52,16 +58,18 @@ const fetchFn = () => {
         <li>
           <n-button @click="notificationFn">notification</n-button>
         </li>
-        <li>
-          <n-button @click="fetchFn">测试axios</n-button>
-        </li>
       </ul>
     </div>
     <div class="main-content">
       <div class="search">
         <n-input v-model="searchText"></n-input>
+        <n-button @click="findArticle">搜索</n-button>
       </div>
-      <doc-template></doc-template>
+      <doc-template
+        v-for="(art, aIndex) in artList"
+        :key="aIndex"
+        :data="art">
+      </doc-template>
     </div>
   </div>
 </template>

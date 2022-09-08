@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-  
+import { defineProps, computed } from 'vue';
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => {}
+  }
+})
+const art = computed(() => {
+  return props.data
+})
 </script>
 <template>
   <header class="header cbox">
-    <div class="title">这是标题</div>
+    <div class="title">{{ art.title || '' }}</div>
     <p class="desc">
-      这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述
-      这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述
-      这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述
+      {{ art.desc || '' }}
     </p>
   </header>
   <main class="main cbox">
     <n-scrollbar>
-      这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是
-      main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main
-      这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main
-      这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main
-      这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main
-      这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main
-      这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main这是main
-      这是main
+      {{ art.content || '' }}
     </n-scrollbar>
   </main>
   <footer class="footer cbox">这是footer</footer>
