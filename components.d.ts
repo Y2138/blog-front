@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NScrollbar: typeof import('naive-ui')['NScrollbar']
     NScrollBar: typeof import('naive-ui')['NScrollBar']
+    RightCard: typeof import('./src/components/rightCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

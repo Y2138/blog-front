@@ -19,7 +19,7 @@
   --font-color-shallow: #696b72;
   --background-shallow: #fbfcfe;
   --background-dark: #ffffff;
-  --shadow-shallow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+  --shadow-shallow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
   --shadow-dark: 0px 4px 20px 0px rgba(0, 0, 0, 0.12);
   --base-radius: 20px;
   --color-pink: #eba1c0;
@@ -32,5 +32,59 @@ div {
     border-radius: 20px;
     background-color: var(--background-dark);
     padding: 12px;
+  }
+  &.flex-box {
+    display: flex;
+    align-items: center;
+  }
+  &.alg-c {
+    align-items: center;
+  }
+  &.jus-b {
+    justify-content: space-between;
+  }
+  &.jus-c {
+    justify-content: center;
+  }
+}
+
+@for $i from 2 through 10 {
+  .pl-#{$i} {
+    padding-left: 1px * $i;
+  }
+  .pl-#{$i * 2} {
+    padding-left: 2px * $i;
+  }
+  .pr-#{$i} {
+    padding-right: 1px * $i;
+  }
+  .pr-#{$i * 2} {
+    padding-right: 2px * $i;
+  }
+  .pt-#{$i} {
+    padding-top: 1px * $i;
+  }
+  .pt-#{$i * 2} {
+    padding-top: 2px * $i;
+  }
+  .pb-#{$i} {
+    padding-bottom: 1px * $i;
+  }
+  .pb-#{$i * 2} {
+    padding-bottom: 2px * $i;
+  }
+}
+
+@for $j from 1 through 5 {
+  .pall-#{$j * 5} {
+    padding: 5px * $j;
+  }
+  .plr-#{$j * 5} {
+    padding-left: 5px * $j;
+    padding-right: 5px * $j;
+  }
+  .ptb-#{$j * 5} {
+    padding-top: 5px * $j;
+    padding-bottom: 5px * $j;
   }
 }

@@ -7,7 +7,9 @@ import utilCom from './views/utilCom.vue';
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: '#4c8dae',
+    primaryColor: 'rgba(76, 141, 174, 1.0)',
+    primaryColorHover: 'rgba(76, 141, 174, 0.8)',
+    primaryColorPressed: 'rgba(76, 141, 174, 0.8)'
   },
 }
 </script>

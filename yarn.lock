@@ -83,6 +83,11 @@
   resolved "https://verdaccio.qa.enmonster.com/@types%2fnode/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
   integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
+"@types/web-bluetooth@^0.0.15":
+  version "0.0.15"
+  resolved "https://verdaccio.qa.enmonster.com/@types%2fweb-bluetooth/-/web-bluetooth-0.0.15.tgz#d60330046a6ed8a13b4a53df3813c44942ebdf72"
+  integrity sha512-w7hEHXnPMEZ+4nGKl/KDRVpxkwYxYExuHOYXyzIzCDzEZ9ZCGMAewulr9IqJu2LR4N37fcnb1XVeuZ09qgOxhA==
+
 "@vitejs/plugin-vue@^3.0.0":
   version "3.0.0"
   resolved "https://verdaccio.qa.enmonster.com/@vitejs%2fplugin-vue/-/plugin-vue-3.0.0.tgz#7081e2b3fbe04e291bb85107b9fb57a1fa5e6aeb"
@@ -217,6 +222,28 @@
   resolved "https://verdaccio.qa.enmonster.com/@vue%2fshared/-/shared-3.2.37.tgz#8e6adc3f2759af52f0e85863dfb0b711ecc5c702"
   integrity sha512-4rSJemR2NQIo9Klm1vabqWjD8rs/ZaJSzMxkMNeJS6lHiUjjUeYFbooN19NgFjztubEKh3WlZUeOLVdbbUWHsw==
 
+"@vueuse/core@^9.2.0":
+  version "9.2.0"
+  resolved "https://verdaccio.qa.enmonster.com/@vueuse%2fcore/-/core-9.2.0.tgz#58e3588b9bc5a69010aa9104b00056ee9ebff738"
+  integrity sha512-/MZ6qpz6uSyaXrtoeBWQzAKRG3N7CvfVWvQxiM3ei3Xe5ydOjjtVbo7lGl9p8dECV93j7W8s63A8H0kFLpLyxg==
+  dependencies:
+    "@types/web-bluetooth" "^0.0.15"
+    "@vueuse/metadata" "9.2.0"
+    "@vueuse/shared" "9.2.0"
+    vue-demi "*"
+
+"@vueuse/metadata@9.2.0":
+  version "9.2.0"
+  resolved "https://verdaccio.qa.enmonster.com/@vueuse%2fmetadata/-/metadata-9.2.0.tgz#6bf7c9c44b9f5ece405837226a0e04a997994458"
+  integrity sha512-exN4KE6iquxDCdt72BgEhb3tlOpECtD61AUdXnUqBTIUCl70x1Ar/QXo3bYcvxmdMS2/peQyfeTzBjRTpvL5xw==
+
+"@vueuse/shared@9.2.0":
+  version "9.2.0"
+  resolved "https://verdaccio.qa.enmonster.com/@vueuse%2fshared/-/shared-9.2.0.tgz#7831051b2c1d01c3413c749468ee53a86024510e"
+  integrity sha512-NnRp/noSWuXW0dKhZK5D0YLrDi0nmZ18UeEgwXQq7Ul5TTP93lcNnKjrHtd68j2xFB/l59yPGFlCryL692bnrA==
+  dependencies:
+    vue-demi "*"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://verdaccio.qa.enmonster.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -226,6 +253,11 @@ acorn@^8.7.1:
   version "8.7.1"
   resolved "https://verdaccio.qa.enmonster.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
   integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
+
+acorn@^8.8.0:
+  version "8.8.0"
+  resolved "https://verdaccio.qa.enmonster.com/acorn/-/acorn-8.8.0.tgz#88c0187620435c7f6015803f5539dae05a9dbea8"
+  integrity sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==
 
 ajv-keywords@^3.5.2:
   version "3.5.2"
@@ -741,6 +773,11 @@ escape-string-regexp@^1.0.2:
   resolved "https://verdaccio.qa.enmonster.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
+escape-string-regexp@^5.0.0:
+  version "5.0.0"
+  resolved "https://verdaccio.qa.enmonster.com/escape-string-regexp/-/escape-string-regexp-5.0.0.tgz#4683126b500b61762f2dbebace1806e8be31b1c8"
+  integrity sha1-RoMSa1ALYXYvLb66zhgG6L4xscg=
+
 estree-walker@^2.0.1, estree-walker@^2.0.2:
   version "2.0.2"
   resolved "https://verdaccio.qa.enmonster.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
@@ -1160,6 +1197,11 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
+jsonc-parser@^3.2.0:
+  version "3.2.0"
+  resolved "https://verdaccio.qa.enmonster.com/jsonc-parser/-/jsonc-parser-3.2.0.tgz#31ff3f4c2b9793f89c67212627c51c6394f88e76"
+  integrity sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==
+
 jsprim@^1.2.2:
   version "1.4.2"
   resolved "https://verdaccio.qa.enmonster.com/jsprim/-/jsprim-1.4.2.tgz#712c65533a15c878ba59e9ed5f0e26d5b77c5feb"
@@ -1195,7 +1237,7 @@ loader-utils@^1.2.3:
     emojis-list "^3.0.0"
     json5 "^1.0.1"
 
-local-pkg@^0.4.1:
+local-pkg@^0.4.1, local-pkg@^0.4.2:
   version "0.4.2"
   resolved "https://verdaccio.qa.enmonster.com/local-pkg/-/local-pkg-0.4.2.tgz#13107310b77e74a0e513147a131a2ba288176c2f"
   integrity sha512-mlERgSPrbxU3BP4qBqAvvwlgW4MTg78iwJdGGnv7kibKjWcJksrG3t6LB5lXI93wXRDvG4NpUgJFmTG4T6rdrg==
@@ -1326,6 +1368,16 @@ minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.6:
   integrity sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==
   dependencies:
     minimist "^1.2.6"
+
+mlly@^0.5.14, mlly@^0.5.7:
+  version "0.5.15"
+  resolved "https://verdaccio.qa.enmonster.com/mlly/-/mlly-0.5.15.tgz#88dbd386dd320798a06a1aa7586f840b5b4ffdfc"
+  integrity sha512-cA1DS4Va2t0h/1c044haUDubeWwlKrvToLbOT3Oprpr2tW5dJTObEIXDdONRN/ahKm0GWEPVeptbg0dlzl8gBQ==
+  dependencies:
+    acorn "^8.8.0"
+    pathe "^0.3.8"
+    pkg-types "^0.3.5"
+    ufo "^0.8.5"
 
 ms@2.1.2:
   version "2.1.2"
@@ -1540,6 +1592,11 @@ path-type@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+pathe@^0.3.3, pathe@^0.3.7, pathe@^0.3.8:
+  version "0.3.8"
+  resolved "https://verdaccio.qa.enmonster.com/pathe/-/pathe-0.3.8.tgz#3584f03fda1981a6efe8bc24623d82cbb4219acb"
+  integrity sha512-c71n61F1skhj/jzZe+fWE9XDoTYjWbUwIKVwFftZ5IOgiX44BVkTkD+/803YDgR50tqeO4eXWxLyVHBLWQAD1g==
+
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://verdaccio.qa.enmonster.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
@@ -1579,6 +1636,15 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://verdaccio.qa.enmonster.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
+
+pkg-types@^0.3.5:
+  version "0.3.5"
+  resolved "https://verdaccio.qa.enmonster.com/pkg-types/-/pkg-types-0.3.5.tgz#ea01c7cf28da9e4c5b85de9b250de4b3dc2e9abc"
+  integrity sha512-VkxCBFVgQhNHYk9subx+HOhZ4jzynH11ah63LZsprTKwPCWG9pfWBlkElWFbvkP9BVR0dP1jS9xPdhaHQNK74Q==
+  dependencies:
+    jsonc-parser "^3.2.0"
+    mlly "^0.5.14"
+    pathe "^0.3.7"
 
 postcss@^8.1.10, postcss@^8.4.14:
   version "8.4.14"
@@ -1804,6 +1870,11 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
+scule@^0.3.2:
+  version "0.3.2"
+  resolved "https://verdaccio.qa.enmonster.com/scule/-/scule-0.3.2.tgz#472445cecd8357165a94a067f78cee40e700b596"
+  integrity sha512-zIvPdjOH8fv8CgrPT5eqtxHQXmPNnV/vHJYffZhE43KZkvULvpCTvOt1HPlFaCZx287INL9qaqrZg34e8NgI4g==
+
 seemly@^0.3.1, seemly@^0.3.4:
   version "0.3.5"
   resolved "https://verdaccio.qa.enmonster.com/seemly/-/seemly-0.3.5.tgz#7f680d1b8f9ecdfbd6358d62c72b9af10a485b3d"
@@ -1980,6 +2051,13 @@ strip-indent@^1.0.1:
   dependencies:
     get-stdin "^4.0.1"
 
+strip-literal@^0.4.0:
+  version "0.4.2"
+  resolved "https://verdaccio.qa.enmonster.com/strip-literal/-/strip-literal-0.4.2.tgz#4f9fa6c38bb157b924e9ace7155ebf8a2342cbcf"
+  integrity sha512-pv48ybn4iE1O9RLgCAN0iU4Xv7RlBTiit6DKmMiErbs9x1wH6vXBs45tWc0H5wUIF6TLTrKweqkmYF/iraQKNw==
+  dependencies:
+    acorn "^8.8.0"
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://verdaccio.qa.enmonster.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -2048,6 +2126,39 @@ typescript@^4.6.4:
   resolved "https://verdaccio.qa.enmonster.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
 
+ufo@^0.8.5:
+  version "0.8.5"
+  resolved "https://verdaccio.qa.enmonster.com/ufo/-/ufo-0.8.5.tgz#e367b4205ece9d9723f2fa54f887d43ed1bce5d0"
+  integrity sha512-e4+UtA5IRO+ha6hYklwj6r7BjiGMxS0O+UaSg9HbaTefg4kMkzj4tXzEBajRR+wkxf+golgAWKzLbytCUDMJAA==
+
+unimport@^0.6.7:
+  version "0.6.7"
+  resolved "https://verdaccio.qa.enmonster.com/unimport/-/unimport-0.6.7.tgz#7b2e2063b88ee8ea363d2d751f7c82a6960beac3"
+  integrity sha512-EMoVqDjswHkU+nD098QYHXH7Mkw7KwGDQAyeRF2lgairJnuO+wpkhIcmCqrD1OPJmsjkTbJ2tW6Ap8St0PuWZA==
+  dependencies:
+    "@rollup/pluginutils" "^4.2.1"
+    escape-string-regexp "^5.0.0"
+    fast-glob "^3.2.11"
+    local-pkg "^0.4.2"
+    magic-string "^0.26.2"
+    mlly "^0.5.7"
+    pathe "^0.3.3"
+    scule "^0.3.2"
+    strip-literal "^0.4.0"
+    unplugin "^0.9.0"
+
+unplugin-auto-import@^0.11.2:
+  version "0.11.2"
+  resolved "https://verdaccio.qa.enmonster.com/unplugin-auto-import/-/unplugin-auto-import-0.11.2.tgz#9b541f65e2800f298b13d73bca8e4eb333f94de7"
+  integrity sha512-1+VwBfn9dtiYv9SQLKP1AvZolUbK9xTVeAT+iOcEk4EHSFUlmIqBVLEKI76cifSQTLOJ3rZyPrEgptf3SZNLlQ==
+  dependencies:
+    "@antfu/utils" "^0.5.2"
+    "@rollup/pluginutils" "^4.2.1"
+    local-pkg "^0.4.2"
+    magic-string "^0.26.2"
+    unimport "^0.6.7"
+    unplugin "^0.9.3"
+
 unplugin-vue-components@^0.21.1:
   version "0.21.1"
   resolved "https://verdaccio.qa.enmonster.com/unplugin-vue-components/-/unplugin-vue-components-0.21.1.tgz#8ff156da1faaef368d8fad9fa7573c80ad4ccfa0"
@@ -2070,6 +2181,16 @@ unplugin@^0.7.1:
   integrity sha512-m7thX4jP8l5sETpLdUASoDOGOcHaOVtgNyrYlToyQUvILUtEzEnngRBrHnAX3IKqooJVmXpoa/CwQ/QqzvGaHQ==
   dependencies:
     acorn "^8.7.1"
+    chokidar "^3.5.3"
+    webpack-sources "^3.2.3"
+    webpack-virtual-modules "^0.4.4"
+
+unplugin@^0.9.0, unplugin@^0.9.3:
+  version "0.9.5"
+  resolved "https://verdaccio.qa.enmonster.com/unplugin/-/unplugin-0.9.5.tgz#2e546c044e0631e699ebd6fb521eeb7bbcb8899f"
+  integrity sha512-luraheyfxwtvkvHpsOvMNv7IjLdORTWKZp0gWYNHGLi2ImON3iIZOj464qEyyEwLA/EMt12fC415HW9zRpOfTg==
+  dependencies:
+    acorn "^8.8.0"
     chokidar "^3.5.3"
     webpack-sources "^3.2.3"
     webpack-virtual-modules "^0.4.4"

@@ -22,6 +22,9 @@ const findArticle = () => {
     console.log('res', res)
     const { model } = res
     artList.value = model || []
+  }).catch(err => {
+    console.log(err)
+    eventEmitts.emit('$message.error', err)
   })
   // const param = {
   //   pageIndex: 1,
@@ -39,24 +42,27 @@ const findArticle = () => {
   <div class="main-left-wrap">
     <div :class="['main-left', { 'is-shrink': shrink }]">
       <ul>
+        <n-button type="text" @click="shrink = !shrink">expand</n-button>
+        <n-button type="primary" @click="changeTheme">切换</n-button>
+        <n-button @click="messageFn">message</n-button>
+        <n-button @click="dialogFn">dialog</n-button>
+        <n-button @click="notificationFn">notification</n-button>
         <li>
           <i class="iconfont icon-html"></i>
-          <n-button @click="shrink = !shrink">收缩</n-button>
         </li>
         <li>
           <i class="iconfont icon-css"></i>
-          <n-button @click="changeTheme">切换</n-button>
         </li>
         <li>
           <i class="iconfont nodejsNodejsxingnengpingtai"></i>
-          <n-button @click="messageFn">message</n-button>
+          
         </li>
         <li>
           <i class="iconfont icon-bxl-vuejs"></i>
-          <n-button @click="dialogFn">dialog</n-button>
+          
         </li>
         <li>
-          <n-button @click="notificationFn">notification</n-button>
+          
         </li>
       </ul>
     </div>

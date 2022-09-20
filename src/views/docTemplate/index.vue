@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue';
 const props = defineProps({
   data: {
     type: Object,

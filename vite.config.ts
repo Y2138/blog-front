@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import { resolve } from 'path'
+import AutoImport from 'unplugin-auto-import/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -10,6 +11,10 @@ export default defineConfig({
     Components({
       resolvers: [NaiveUiResolver()]
     }),
+    AutoImport({
+      imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
+      dts: './auto-imports.d.ts'
+    })
   ],
   resolve: {
     alias: [

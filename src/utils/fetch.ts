@@ -23,6 +23,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig<BasicReqDataModel>
 
 instance.interceptors.response.use((res: AxiosResponse<BasicResponseModel>) => {
   const { data } = res
+  console.log('success: ', res)
   return Promise.resolve(data)
 }, (error: any) => {
   const { response } = error
@@ -86,7 +87,7 @@ function dealStatusCode(status: number) {
       eventEmitts.emit('message.error', `${status}-网关超时`);
       break;
     default:
-      eventEmitts.emit('message.error', `${status}-晕了晕了...请重试`);
+      eventEmitts.emit('message.error', `${status}-服务器晕了晕了...请重试`);
   }
 }
 

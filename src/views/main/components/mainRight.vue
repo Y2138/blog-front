@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import rightCard from '@/components/rightCard.vue'
 </script>
 
 <template>
   <!-- 头、面包屑、刷新按钮 -->
   <div class="main-right">
-    这是右侧
+    <right-card
+      title="我是谁"
+      label="who"
+      desc="我是哪个"
+      tip="哪个是我"></right-card>
   </div>
 </template>
 
 
 <style scoped lang="scss">
 .main-right {
-  height: 100px;
-  width: 276px;
+  width: 25%;
   margin: 20px 0;
   padding: 12px;
   display: flex;
