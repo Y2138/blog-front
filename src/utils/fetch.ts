@@ -91,13 +91,13 @@ function dealStatusCode(status: number) {
   }
 }
 
-export const request = (config: AxiosRequestConfig<any>) => {
+export const request = (config: AxiosRequestConfig<BasicReqDataModel>): Promise<BasicResponseModel> => {
   return instance.request(config)
 }
 
-export const get = (url: string, config: AxiosRequestConfig<any>) => {
+export const get = (url: string, config: AxiosRequestConfig<BasicReqDataModel>): Promise<BasicResponseModel> => {
   return request({ url, method: 'get', ...config })
 }
-export const post = (url: string, config: AxiosRequestConfig<BasicReqDataModel>) => {
+export const post = (url: string, config: AxiosRequestConfig<BasicReqDataModel>): Promise<BasicResponseModel> => {
   return request({ url, method: 'post', ...config })
 }

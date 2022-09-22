@@ -6,7 +6,7 @@ const props = defineProps({
   }
 })
 const art = computed(() => {
-  return props.data
+  return props.data || {}
 })
 </script>
 <template>

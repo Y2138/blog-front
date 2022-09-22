@@ -27,6 +27,10 @@
   --color-primary: #22a2c3; // 海青
 }
 
+p {
+  margin: 0;
+}
+
 div {
   &.cbox {
     border-radius: 20px;
@@ -47,44 +51,66 @@ div {
     justify-content: center;
   }
 }
+@for $k from 1 through 4 {
+  .flex#{$k} {
+    flex: $k;
+  }
+}
 
-@for $i from 2 through 10 {
-  .pl-#{$i} {
+@for $i from 2 through 24 {
+  .pl#{$i} {
     padding-left: 1px * $i;
   }
-  .pl-#{$i * 2} {
-    padding-left: 2px * $i;
-  }
-  .pr-#{$i} {
+  .pr#{$i} {
     padding-right: 1px * $i;
   }
-  .pr-#{$i * 2} {
-    padding-right: 2px * $i;
-  }
-  .pt-#{$i} {
+  .pt#{$i} {
     padding-top: 1px * $i;
   }
-  .pt-#{$i * 2} {
-    padding-top: 2px * $i;
-  }
-  .pb-#{$i} {
+  .pb#{$i} {
     padding-bottom: 1px * $i;
-  }
-  .pb-#{$i * 2} {
-    padding-bottom: 2px * $i;
   }
 }
 
 @for $j from 1 through 5 {
-  .pall-#{$j * 5} {
+  .pall#{$j * 5} {
     padding: 5px * $j;
   }
-  .plr-#{$j * 5} {
+  .plr#{$j * 5} {
     padding-left: 5px * $j;
     padding-right: 5px * $j;
   }
-  .ptb-#{$j * 5} {
+  .ptb#{$j * 5} {
     padding-top: 5px * $j;
     padding-bottom: 5px * $j;
+  }
+}
+
+@for $i from 2 through 24 {
+  .ml#{$i} {
+    margin-left: 1px * $i;
+  }
+  .mr#{$i} {
+    margin-right: 1px * $i;
+  }
+  .mt#{$i} {
+    margin-top: 1px * $i;
+  }
+  .mb#{$i} {
+    margin-bottom: 1px * $i;
+  }
+}
+
+@for $j from 1 through 5 {
+  .mall#{$j * 5} {
+    margin: 5px * $j;
+  }
+  .mlr#{$j * 5} {
+    margin-left: 5px * $j;
+    margin-right: 5px * $j;
+  }
+  .ptb#{$j * 5} {
+    margin-top: 5px * $j;
+    margin-bottom: 5px * $j;
   }
 }

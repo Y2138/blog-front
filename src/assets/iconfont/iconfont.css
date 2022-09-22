@@ -1,17 +1,28 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2117988 */
-  src: url('iconfont.woff2?t=1661161711763') format('woff2'),
-       url('iconfont.woff?t=1661161711763') format('woff'),
-       url('iconfont.ttf?t=1661161711763') format('truetype');
+  src: url('iconfont.woff2?t=1663813489307') format('woff2'),
+       url('iconfont.woff?t=1663813489307') format('woff'),
+       url('iconfont.ttf?t=1663813489307') format('truetype');
 }
 
-[class^="iconfont"], [class*="iconfont"] {
+.iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
-  color: var(--color-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tianqi-duoyun:before {
+  content: "\e6dc";
+}
+
+.icon-tianqi-yutian:before {
+  content: "\e6dd";
+}
+
+.icon-tianqi-qingtian:before {
+  content: "\e6de";
 }
 
 .icon-xingneng:before {
@@ -34,10 +45,6 @@
   content: "\e700";
 }
 
-.icon-bilibili:before {
-  content: "\e6b4";
-}
-
 .icon-weibo:before {
   content: "\e882";
 }
@@ -52,9 +59,5 @@
 
 .icon-bilibili-line:before {
   content: "\eeac";
-}
-
-.icon-bilibili-fill:before {
-  content: "\e652";
 }
 

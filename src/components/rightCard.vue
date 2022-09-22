@@ -54,7 +54,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .card-container {
   padding: 17px 18px 18px;
-  border-radius: 4px;
+  border-radius: 16px;
   width: calc(100% - 36px);
   background-color: var(--background-shallow);
   &.has-shadow {

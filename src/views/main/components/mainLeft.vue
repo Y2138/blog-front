@@ -4,6 +4,15 @@ import { useStore } from '@/store/themeStore'
 import DocTemplate from '@/views/docTemplate/index.vue';
 import eventEmitts from '@/utils/eventEmitter';
 import { post } from '@/utils/fetch';
+import addArticle from './addArticle.vue';
+import rightCard from '@/components/rightCard.vue';
+
+interface ArticleModel {
+  title: string,
+  desc: string,
+  content: string
+}
+
 const { changeTheme } = useStore()
 const shrink = ref(false)
 const searchText = ref('这是搜索框')
@@ -16,12 +25,26 @@ const dialogFn = () => {
 const notificationFn = () => {
   eventEmitts.emit('$notification.error', { content: '这是notification', duration: 3000 })
 }
-const artList = ref([])
+const artList = ref<ArticleModel[]>([])
+const addArtModal = ref(false)
+const curArticle = ref(null)
+const curArticleIdx = ref(0)
+const addArticleFn = () => {
+  addArtModal.value = true
+}
 const findArticle = () => {
-  post('/article/getArticle/list', {}).then(res => {
+  const param = {
+    model: {
+      title: searchText.value,
+    },
+    pageSize: 10,
+    pageIndex: 1
+  }
+  post('/article/getArticle/list', { data: param }).then(res => {
     console.log('res', res)
     const { model } = res
     artList.value = model || []
+    curArticle.value = model.length ? model[0] : null
   }).catch(err => {
     console.log(err)
     eventEmitts.emit('$message.error', err)
@@ -42,11 +65,11 @@ const findArticle = () => {
   <div class="main-left-wrap">
     <div :class="['main-left', { 'is-shrink': shrink }]">
       <ul>
-        <n-button type="text" @click="shrink = !shrink">expand</n-button>
-        <n-button type="primary" @click="changeTheme">切换</n-button>
-        <n-button @click="messageFn">message</n-button>
-        <n-button @click="dialogFn">dialog</n-button>
-        <n-button @click="notificationFn">notification</n-button>
+        <n-button type="primary" @click="shrink = !shrink">expand</n-button>
+        <n-button class="mt4" type="primary" @click="changeTheme">切换</n-button>
+        <n-button class="mt4" type="primary" @click="messageFn">message</n-button>
+        <n-button class="mt4" type="primary" @click="dialogFn">dialog</n-button>
+        <n-button class="mt4" type="primary" @click="notificationFn">notification</n-button>
         <li>
           <i class="iconfont icon-html"></i>
         </li>
@@ -68,15 +91,25 @@ const findArticle = () => {
     </div>
     <div class="main-content">
       <div class="search">
-        <n-input v-model="searchText"></n-input>
-        <n-button @click="findArticle">搜索</n-button>
+        <n-input v-model:value="searchText"></n-input>
+        <n-button type="primary" @click="addArticleFn">新增文章</n-button>
+        <n-button type="primary" @click="findArticle">搜索</n-button>
       </div>
       <doc-template
-        v-for="(art, aIndex) in artList"
-        :key="aIndex"
-        :data="art">
+        :data="artList[curArticleIdx]">
       </doc-template>
+      <div class="flex-box mt20">
+        <right-card
+          class="flex-1"
+          :class="{ 'ml10': idx > 0 }"
+          v-for="(item, idx) in artList"
+          :key="idx"
+          :title="item.title"
+          :desc="item.desc">
+        </right-card>
+      </div>
     </div>
+    <add-article v-model:show="addArtModal"></add-article>
   </div>
 </template>
 
@@ -95,7 +128,7 @@ const findArticle = () => {
 }
 .main-left-wrap {
   padding: 32px 20px 36px;
-  transition: all .3s ease-out;
+  transition: all .2s ease-out;
   background-color: var(--background-shallow);
   border-top-right-radius: 12%;
   border-bottom-right-radius: 12%;
@@ -106,7 +139,7 @@ const findArticle = () => {
     border-radius: 40px;
     padding: 12px;
     background-color: var(--background-dark);
-    transition: all .3s ease-in;
+    transition: all .2s ease-out;
     box-shadow: var(--shadow-dark);
     &.is-shrink {
       width: 166px;
