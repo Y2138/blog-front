@@ -2,12 +2,14 @@ import { createWebHistory, createRouter } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 import mainDoc from './mainDoc'
+import boss from './boss'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     redirect: '/docs'
   },
-  ...mainDoc
+  ...mainDoc,
+  ...boss
 ]
 
 const router = createRouter({
