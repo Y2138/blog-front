@@ -9,8 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bytemd/plugin-gfm": "^1.17.4",
+    "@bytemd/plugin-highlight": "^1.17.2",
+    "@bytemd/vue-next": "^1.17.4",
     "@vueuse/core": "^9.2.0",
     "axios": "^0.27.2",
+    "juejin-markdown-themes": "^1.29.3",
     "moment": "^2.29.4",
     "pinia": "^2.0.16",
     "vue": "^3.2.37",

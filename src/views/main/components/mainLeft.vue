@@ -6,6 +6,7 @@ import eventEmitts from '@/utils/eventEmitter';
 import { post } from '@/utils/fetch';
 import addArticle from './addArticle.vue';
 import rightCard from '@/components/rightCard.vue';
+import { useRouter } from 'vue-router'
 
 interface ArticleModel {
   title: string,
@@ -58,6 +59,10 @@ const findArticle = () => {
   //   console.log(res)
   // })
 }
+const router = useRouter()
+const toBoss = () => {
+  router.push('/boss')
+}
 </script>
 
 <template>
@@ -65,6 +70,7 @@ const findArticle = () => {
   <div class="main-left-wrap">
     <div :class="['main-left', { 'is-shrink': shrink }]">
       <ul>
+        <n-button type="primary" @click="toBoss"></n-button>
         <n-button type="primary" @click="shrink = !shrink">expand</n-button>
         <n-button class="mt4" type="primary" @click="changeTheme">切换</n-button>
         <n-button class="mt4" type="primary" @click="messageFn">message</n-button>

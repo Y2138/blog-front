@@ -9,6 +9,11 @@ const routes: RouteRecordRaw[] = [
         path: '/boss/index',
         name: 'bossMainIndex',
         component: () => import('../views/boss/dashboard.vue')
+      },
+      {
+        path: '/boss/markdownEdit',
+        name: 'bossMarkDown',
+        component: () => import('../views/boss/mdViews/md.vue')
       }
     ]
   }

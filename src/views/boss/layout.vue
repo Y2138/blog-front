@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import { NIcon, MentionOption } from 'naive-ui'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { h } from 'vue';
+import { useStore } from '@/store/menuStore'
+
+const router = useRouter()
+const { menuTabs, addTab } = useStore()
+const handleAddTab = (tab) => {
+  addTab(tab)
+}
+const handleTabChange = (tab) => {
+  addTab(tab)
+  router.push(tab.path)
+}
 const tabTitle = ref(0)
 const menuOptions = ref<MentionOption>([
   {
@@ -14,7 +25,11 @@ const menuOptions = ref<MentionOption>([
             params: {
               lang: 'zh-CN'
             }
-          }
+          },
+          onClick: handleAddTab({
+            path: '/boss/index',
+            name: '家'
+          })
         },
         { default: () => '回家' }
       ),
@@ -100,6 +115,26 @@ const menuOptions = ref<MentionOption>([
         key: 'the-past-increases-the-future-recedes'
       }
     ]
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: 'bossMarkDown',
+            params: {
+              lang: 'zh-CN'
+            }
+          },
+          onClick: handleAddTab({
+            path: '/boss/markdownEdit',
+            name: 'MarkDown编辑器'
+          })
+        },
+        { default: () => 'MarkDown编辑器' }
+      ),
+    key: ''
   }
 ])
 </script>
@@ -116,9 +151,12 @@ const menuOptions = ref<MentionOption>([
           size="large"
           pane-style="padding: 0"
           closable>
-          <n-tab-pane name="第一章"></n-tab-pane>
-          <n-tab-pane name="第二章"></n-tab-pane>
-          <n-tab-pane name="第三章"></n-tab-pane>
+          <n-tab-pane
+            v-for="(item, index) in menuTabs"
+            :key="'m' + index"
+            :name="item.name"
+            @click="handleTabChange(item)">
+          </n-tab-pane>
         </n-tabs>
       </n-layout-header>
       <n-layout class="layout-main">
@@ -138,7 +176,8 @@ const menuOptions = ref<MentionOption>([
   margin: 0;
 }
 .layout-main {
-  padding: 20px;
+  padding: 12px;
+  height: calc(100% - 24px - 42px)
 }
 .layout-footer {
   position: absolute;

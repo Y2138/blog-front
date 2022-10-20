@@ -2,5 +2,5 @@
 
 </script>
 <template>
-  index
+  这是主页面
 </template>
