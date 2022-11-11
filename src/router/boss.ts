@@ -11,9 +11,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/boss/dashboard.vue')
       },
       {
-        path: '/boss/markdownEdit',
+        path: '/boss/addArticle',
         name: 'bossMarkDown',
-        component: () => import('../views/boss/mdViews/md.vue')
+        component: () => import('../views/boss/article/addArticle.vue')
       }
     ]
   }

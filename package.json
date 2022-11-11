@@ -9,8 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bytemd/plugin-breaks": "^1.17.2",
+    "@bytemd/plugin-footnotes": "^1.12.4",
+    "@bytemd/plugin-frontmatter": "^1.17.2",
+    "@bytemd/plugin-gemoji": "^1.17.2",
     "@bytemd/plugin-gfm": "^1.17.4",
     "@bytemd/plugin-highlight": "^1.17.2",
+    "@bytemd/plugin-medium-zoom": "^1.17.2",
     "@bytemd/vue-next": "^1.17.4",
     "@vueuse/core": "^9.2.0",
     "axios": "^0.27.2",
@@ -21,6 +26,7 @@
     "vue-router": "4"
   },
   "devDependencies": {
+    "@vicons/ionicons5": "^0.12.0",
     "@vitejs/plugin-vue": "^3.0.0",
     "naive-ui": "^2.31.0",
     "node-sass": "^4.14.1",

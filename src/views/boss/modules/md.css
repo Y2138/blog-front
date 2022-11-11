@@ -1,0 +1,175 @@
+.bytemd-body {
+  word-break: break-word;
+  line-height: 1.75;
+  font-weight: 400;
+  font-size: 16px;
+  overflow-x: hidden;
+  color: #333;
+}
+.bytemd-body h1,
+.bytemd-body h2,
+.bytemd-body h3,
+.bytemd-body h4,
+.bytemd-body h5,
+.bytemd-body h6 {
+  line-height: 1.5;
+  margin-top: 35px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+.bytemd-body h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+.bytemd-body h2,
+.bytemd-body h3,
+.bytemd-body h4,
+.bytemd-body h5,
+.bytemd-body h6 {
+  font-size: 20px;
+}
+.bytemd-body h2 {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ececec;
+}
+.bytemd-body h3 {
+  font-size: 18px;
+  padding-bottom: 0;
+}
+.bytemd-body h6 {
+  margin-top: 5px;
+}
+.bytemd-body p {
+  line-height: inherit;
+  margin-top: 22px;
+  margin-bottom: 22px;
+}
+.bytemd-body img {
+  max-width: 100%;
+}
+.bytemd-body hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.bytemd-body code {
+  word-break: break-word;
+  border-radius: 2px;
+  overflow-x: auto;
+  background-color: #fff5f5;
+  color: #ff502c;
+  font-size: 0.87em;
+  padding: 0.065em 0.4em;
+}
+.bytemd-body code,
+.bytemd-body pre {
+  font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+}
+.bytemd-body pre {
+  overflow: auto;
+  position: relative;
+  line-height: 1.75;
+}
+.bytemd-body pre > code {
+  font-size: 12px;
+  padding: 15px 12px;
+  margin: 0;
+  word-break: normal;
+  display: block;
+  overflow-x: auto;
+  color: #333;
+  background: #f8f8f8;
+}
+.bytemd-body a {
+  text-decoration: none;
+  color: #0269c8;
+  border-bottom: 1px solid #d1e9ff;
+}
+.bytemd-body a:active,
+.bytemd-body a:hover {
+  color: #275b8c;
+}
+.bytemd-body table {
+  display: inline-block !important;
+  font-size: 12px;
+  width: auto;
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid #f6f6f6;
+}
+.bytemd-body thead {
+  background: #f6f6f6;
+  color: #000;
+  text-align: left;
+}
+.bytemd-body tr:nth-child(2n) {
+  background-color: #fcfcfc;
+}
+.bytemd-body td,
+.bytemd-body th {
+  padding: 12px 7px;
+  line-height: 24px;
+}
+.bytemd-body td {
+  min-width: 120px;
+}
+.bytemd-body blockquote {
+  color: #666;
+  padding: 1px 23px;
+  margin: 22px 0;
+  border-left: 4px solid #cbcbcb;
+  background-color: #f8f8f8;
+}
+.bytemd-body blockquote:after {
+  display: block;
+  content: '';
+}
+.bytemd-body blockquote > p {
+  margin: 10px 0;
+}
+.bytemd-body ol,
+.bytemd-body ul {
+  padding-left: 28px;
+}
+.bytemd-body ol li,
+.bytemd-body ul li {
+  margin-bottom: 0;
+  list-style: inherit;
+}
+.bytemd-body ol li .task-list-item,
+.bytemd-body ul li .task-list-item {
+  list-style: none;
+}
+.bytemd-body ol li .task-list-item ol,
+.bytemd-body ol li .task-list-item ul,
+.bytemd-body ul li .task-list-item ol,
+.bytemd-body ul li .task-list-item ul {
+  margin-top: 0;
+}
+.bytemd-body ol ol,
+.bytemd-body ol ul,
+.bytemd-body ul ol,
+.bytemd-body ul ul {
+  margin-top: 3px;
+}
+.bytemd-body ol li {
+  padding-left: 6px;
+}
+.bytemd-body .contains-task-list {
+  padding-left: 0;
+}
+.bytemd-body .task-list-item {
+  list-style: none;
+}
+@media (max-width: 720px) {
+  .bytemd-body h1 {
+    font-size: 24px;
+  }
+  .bytemd-body h2 {
+    font-size: 20px;
+  }
+  .bytemd-body h3 {
+    font-size: 18px;
+  }
+}

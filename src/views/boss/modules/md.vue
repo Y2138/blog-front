@@ -4,14 +4,32 @@ import 'bytemd/dist/index.css'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight'
 import zhHans from 'bytemd/locales/zh_Hans.json'
+import footnotes from '@bytemd/plugin-footnotes';
+import frontmatter from '@bytemd/plugin-frontmatter';
+import breaks from '@bytemd/plugin-breaks';
+import mediumZoom from '@bytemd/plugin-medium-zoom';
+import gemoji from '@bytemd/plugin-gemoji';
 import 'highlight.js/styles/vs.css'
 import 'juejin-markdown-themes/dist/juejin.min.css'
+import './md.css'
 
-const plugins = [
+type MdProps = {
+  showEditor?: boolean
+}
+const props = withDefaults(defineProps<MdProps>(), {
+  showEditor: true
+})
+
+const plugins = ref([
   gfm(),
   highlight(),
+  footnotes(),
+  frontmatter(),
+  breaks(),
+  mediumZoom(),
+  gemoji()
   // add more plugins here
-]
+])
 const content = ref<string>('')
 const handleChange = (val: string) => {
   content.value = val
@@ -20,12 +38,14 @@ const handleChange = (val: string) => {
 <template>
   <div class="editor-main">
     <Editor
+      v-if="props.showEditor"
       class="editor"
       :locale="zhHans"
       :value="content"
       :plugins="plugins"
       @change="handleChange"
     />
+    <strong v-if="props.showEditor" style="padding: 10px 0;">文章预览</strong>
     <Viewer
       class="viewer"
       :locale="zhHans"
@@ -40,17 +60,17 @@ const handleChange = (val: string) => {
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   .editor {
     flex: 1;
     .bytemd {
-      height: 100% !important;
+      width: 100% !important;
     }
   }
   .viewer {
     flex: 1;
-    padding: 0 20px;
     .bytemd {
-      height: 100% !important;
+      width: 100% !important;
     }
   }
 }
