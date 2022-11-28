@@ -3,16 +3,11 @@ import { ref } from 'vue'
 import { useStore } from '@/store/themeStore'
 import DocTemplate from '@/views/docTemplate/index.vue';
 import eventEmitts from '@/utils/eventEmitter';
-import { post } from '@/utils/fetch';
 import addArticle from './addArticle.vue';
 import rightCard from '@/components/rightCard.vue';
 import { useRouter } from 'vue-router'
-
-interface ArticleModel {
-  title: string,
-  desc: string,
-  content: string
-}
+import { ArticleModel } from '@/api/article/types'
+import { a_getArticle } from '@/api/article'
 
 const { changeTheme } = useStore()
 const shrink = ref(false)
@@ -28,7 +23,7 @@ const notificationFn = () => {
 }
 const artList = ref<ArticleModel[]>([])
 const addArtModal = ref(false)
-const curArticle = ref(null)
+const curArticle = ref<ArticleModel | null>()
 const curArticleIdx = ref(0)
 const addArticleFn = () => {
   addArtModal.value = true
@@ -41,7 +36,7 @@ const findArticle = () => {
     pageSize: 10,
     pageIndex: 1
   }
-  post('/article/getArticle/list', { data: param }).then(res => {
+  a_getArticle(param).then(res => {
     console.log('res', res)
     const { model } = res
     artList.value = model || []

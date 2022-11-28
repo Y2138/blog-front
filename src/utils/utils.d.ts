@@ -1,25 +1,20 @@
-export interface BasicReqDataModel {
-  model: any
+export interface BasicReqDataModel<T> {
+  model: T
 }
-export interface PageReqDataModel extends Required<BasicReqDataModel> {
+export interface PageReqDataModel<T> extends Required<BasicReqDataModel<T>> {
   pageIndex: number
   pageSize: number
 }
-export interface CommonReqDataModel extends Partial<BasicReqDataModel> {
-  [propName: string]: any
-}
 
-export interface BasicResponseModel {
-  model: any
+export interface BasicResponseModel<T> {
+  model: T | Array<T>
   success: boolean
   errorMessage?: string
 }
-export interface PageResponseModel extends BasicResponseModel {
+export interface PageResponseModel<T> extends BasicResponseModel<T> {
   pageIndex: number
   pageSize: number
   total: number
   totalPage: number
-}
-export interface CommonResponseModel extends BasicResponseModel {
-  [propName: string]: any
+  model: Array<T>
 }

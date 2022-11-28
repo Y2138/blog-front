@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { post } from '@/utils/fetch';
+import { ArticleModel } from '@/api/article/types'
+import { a_addArticle } from '@/api/article'
 import { FormInst, useMessage } from 'naive-ui'
 const emits = defineEmits(['update:show'])
 const props = defineProps({
@@ -13,7 +14,7 @@ const showModal = ref(false)
 watchEffect(() => {
   showModal.value = props.show
 })
-const articleModel = ref({
+const articleModel = ref<ArticleModel>({
   title: '',
   desc: '',
   content: '',
@@ -35,9 +36,8 @@ const formRef = ref<FormInst | null>(null)
 const handleConfirm = () => {
   formRef.value?.validate((errors) => {
     if (!errors) {
-      post('/article/add', {
-        data: { ...articleModel.value }
-      }).then(res => {
+      a_addArticle('/article/add', articleModel.value )
+      .then(res => {
         const { success = false, model = {} } = res
         if (success) {
           showModal.value = false

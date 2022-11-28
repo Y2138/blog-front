@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { BasicReqDataModel, BasicResponseModel } from './utils'
+import { BasicReqDataModel, BasicResponseModel, PageReqDataModel, PageResponseModel } from './utils'
 import eventEmitts from '@/utils/eventEmitter'
 const instance: AxiosInstance = axios.create({
   headers: {
@@ -10,7 +10,7 @@ const instance: AxiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
   timeout: 5000,
 })
-instance.interceptors.request.use((config: AxiosRequestConfig<BasicReqDataModel>) => {
+instance.interceptors.request.use((config: AxiosRequestConfig) => {
   const { data } = config
   // TODO 配置config.headers的内容
   // config.headers!['Auth'] = 'UkJTLVBDCtfB4jeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHU1pOMTY3ODkiLCJjcmVhdGVkIjoxNjYwODc2MjkxNTEwLCJleHAiOjE2NjExMzU0OTF9.kNBKluRHfms3CYRhuujeZZCrxuPsSgUgV8G6UhsJWH6Xj5HSNJy1lar8EkwO9uoehLl77w_IcAwbL30QG98n5w'
@@ -21,7 +21,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig<BasicReqDataModel>
   return Promise.reject(error)
 })
 
-instance.interceptors.response.use((res: AxiosResponse<BasicResponseModel>) => {
+instance.interceptors.response.use((res: AxiosResponse) => {
   const { data } = res
   console.log('success: ', res)
   return Promise.resolve(data)
@@ -91,13 +91,18 @@ function dealStatusCode(status: number) {
   }
 }
 
-export const request = (config: AxiosRequestConfig<BasicReqDataModel>): Promise<BasicResponseModel> => {
+// D-入参类型，R-出参data类型
+export const request = <D = any, R = any>(config: AxiosRequestConfig<BasicReqDataModel<D>>): Promise<BasicResponseModel<R>> => {
   return instance.request(config)
 }
 
-export const get = (url: string, config: AxiosRequestConfig<BasicReqDataModel>): Promise<BasicResponseModel> => {
-  return request({ url, method: 'get', ...config })
+export const get = <D = any, R = any>(url: string, config?: AxiosRequestConfig<BasicReqDataModel<D>>): Promise<BasicResponseModel<R>> => {
+  return instance.get(url, config)
 }
-export const post = (url: string, config: AxiosRequestConfig<BasicReqDataModel>): Promise<BasicResponseModel> => {
-  return request({ url, method: 'post', ...config })
+export const post = <D = any, R = any>(url: string, config?: AxiosRequestConfig<BasicReqDataModel<D>>): Promise<BasicResponseModel<R>> => {
+  return instance.post(url, config)
+}
+
+export const pagePost = <D = any, R = any>(url: string, config?: AxiosRequestConfig<PageReqDataModel<D>>): Promise<PageResponseModel<R>> => {
+  return instance.post(url, config)
 }
