@@ -18,10 +18,10 @@ const art = computed(() => {
   </header>
   <main class="main cbox">
     <n-scrollbar>
-      {{ art.content || '' }}
+      <md :text="art.content" :showEditor="false"></md>
     </n-scrollbar>
   </main>
-  <footer class="footer cbox">这是footer</footer>
+  <!-- <footer class="footer cbox">这是footer</footer> -->
 </template>
 
 <style lang="scss" scoped>
@@ -47,7 +47,7 @@ header, main, footer {
   }
 }
 .main {
-  flex: 1;
+  height: 400px;
   margin: 20px 0;
   p {
     margin: 0;

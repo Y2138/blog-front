@@ -12,13 +12,17 @@ import gemoji from '@bytemd/plugin-gemoji';
 import 'highlight.js/styles/vs.css'
 import 'juejin-markdown-themes/dist/juejin.min.css'
 import './md.css'
+import { watch } from 'vue'
 
 type MdProps = {
-  showEditor?: boolean
+  showEditor?: boolean,
+  text: string,
 }
 const props = withDefaults(defineProps<MdProps>(), {
-  showEditor: true
+  showEditor: true,
+  text: ''
 })
+const { text } = toRefs(props)
 
 const plugins = ref([
   gfm(),
@@ -31,8 +35,13 @@ const plugins = ref([
   // add more plugins here
 ])
 const content = ref<string>('')
+watch(text, (val) => {
+  content.value = val
+})
+const emits = defineEmits(['update:text'])
 const handleChange = (val: string) => {
   content.value = val
+  emits('update:text', val)
 }
 </script>
 <template>

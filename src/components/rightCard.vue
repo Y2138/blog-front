@@ -25,30 +25,32 @@ const props = defineProps({
 
 <template>
   <div class="card-container" :class="{'has-shadow': props.shadow}">
-    <div class="flex-box alg-c jus-b pb-5">
-      <div class="card-title">
-        <slot name="title">
-          {{ props.title }}
-        </slot>
+    <slot>
+      <div class="flex-box alg-c jus-b pb-5">
+        <div class="card-title">
+          <slot name="title">
+            {{ props.title }}
+          </slot>
+        </div>
+        <div class="card-label">
+          <slot name="label">
+            {{ props.label }}
+          </slot>
+        </div>
       </div>
-      <div class="card-label">
-        <slot name="label">
-          {{ props.label }}
-        </slot>
+      <div class="flex-box alg-c jus-b pt-5">
+        <div class="card-desc">
+          <slot name="desc">
+            {{ props.desc }}
+          </slot>
+        </div>
+        <div class="card-end">
+          <slot name="tip">
+            {{ props.tip }}
+          </slot>
+        </div>
       </div>
-    </div>
-    <div class="flex-box alg-c jus-b pt-5">
-      <div class="card-desc">
-        <slot name="desc">
-          {{ props.desc }}
-        </slot>
-      </div>
-      <div class="card-end">
-        <slot name="tip">
-          {{ props.tip }}
-        </slot>
-      </div>
-    </div>
+    </slot>
   </div>
 </template>
 <style lang="scss" scoped>

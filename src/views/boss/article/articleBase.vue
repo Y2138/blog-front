@@ -7,6 +7,10 @@ const props = defineProps({
   show: {
     type: Boolean,
     default: false
+  },
+  content: {
+    type: String,
+    default: ''
   }
 })
 const message = useMessage()
@@ -14,10 +18,9 @@ const showModal = ref(false)
 watchEffect(() => {
   showModal.value = props.show
 })
-const articleModel = ref<ArticleModel>({
+const articleModel = ref({
   title: '',
   desc: '',
-  content: '',
   tags: []
 })
 const rules = {
@@ -26,31 +29,23 @@ const rules = {
     message: '请输入标题',
     trigger: 'blur'
   },
-  content: {
-    required: true,
-    message: '请输入内容',
-    trigger: 'blur'
-  }
 }
 const formRef = ref<FormInst | null>(null)
-const handleConfirm = () => {
-  formRef.value?.validate((errors) => {
-    if (!errors) {
-      a_addArticle('/article/add', articleModel.value )
-      .then(res => {
-        const { success = false, model = {} } = res
-        if (success) {
-          showModal.value = false
-        } else {
-          console.log('error: ', res)
-        }
-      }).catch(err => {
-        console.log('error: ', err)
-      })
-    } else {
-      message.error('校验失败')
-    }
-  })
+const saveLoading = ref(false)
+const handleConfirm = async () => {
+  const param: ArticleModel = {
+    content: props.content,
+    ...articleModel.value
+  }
+  saveLoading.value = true
+  const res = await a_addArticle(param)
+  saveLoading.value = false
+  if (res.success) {
+    message.success('提交成功')
+    showModal.value = false
+  } else {
+    message.error(res.errorMessage!)
+  }
 }
 const handleModalClose = () => {
   emits('update:show', false)
@@ -76,9 +71,6 @@ const handleModalClose = () => {
       <n-form-item label="描述">
         <n-input v-model:value="articleModel.desc"></n-input>
       </n-form-item>
-      <n-form-item label="内容" path="content">
-        <n-input v-model:value="articleModel.content" type="textarea"></n-input>
-      </n-form-item>
       <n-form-item label="标签">
         <n-checkbox-group v-model:value="articleModel.tags">
           <n-checkbox :value="1" label="前端"></n-checkbox>
@@ -89,13 +81,8 @@ const handleModalClose = () => {
       </n-form-item>
       <div class="ptb12 flex-box jus-c">
         <n-button class="mr8" @click="showModal = false">取消</n-button>
-        <n-button class="ml8" type="primary" @click="handleConfirm">提交</n-button>
+        <n-button class="ml8" type="primary" :loading="saveLoading" @click="handleConfirm">提交</n-button>
       </div>
     </n-form>
-    <!-- <template>
-      <div>
-        
-      </div>
-    </template> -->
   </n-modal>
 </template>

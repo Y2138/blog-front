@@ -1,20 +1,20 @@
-export interface BasicReqDataModel<T> {
+
+export interface PageReqDataModel<T> {
   model: T
-}
-export interface PageReqDataModel<T> extends Required<BasicReqDataModel<T>> {
   pageIndex: number
   pageSize: number
 }
 
 export interface BasicResponseModel<T> {
-  model: T | Array<T>
+  model?: T | Array<T>
   success: boolean
   errorMessage?: string
+  status?: number
 }
 export interface PageResponseModel<T> extends BasicResponseModel<T> {
   pageIndex: number
   pageSize: number
-  total: number
+  totalCount: number
   totalPage: number
-  model: Array<T>
+  model?: Array<T>
 }

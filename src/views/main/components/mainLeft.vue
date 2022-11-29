@@ -3,15 +3,13 @@ import { ref } from 'vue'
 import { useStore } from '@/store/themeStore'
 import DocTemplate from '@/views/docTemplate/index.vue';
 import eventEmitts from '@/utils/eventEmitter';
-import addArticle from './addArticle.vue';
 import rightCard from '@/components/rightCard.vue';
 import { useRouter } from 'vue-router'
 import { ArticleModel } from '@/api/article/types'
-import { a_getArticle } from '@/api/article'
+import { a_getArticleList } from '@/api/article'
 
 const { changeTheme } = useStore()
 const shrink = ref(false)
-const searchText = ref('这是搜索框')
 const messageFn = () => {
   eventEmitts.emit('$message.error', '这是message')
 }
@@ -22,41 +20,48 @@ const notificationFn = () => {
   eventEmitts.emit('$notification.error', { content: '这是notification', duration: 3000 })
 }
 const artList = ref<ArticleModel[]>([])
-const addArtModal = ref(false)
+
+const searchText = ref('')
+const pageIndex = ref(1)
+const pageSize = ref(3)
+const totalCount = ref(0)
 const curArticle = ref<ArticleModel | null>()
 const curArticleIdx = ref(0)
-const addArticleFn = () => {
-  addArtModal.value = true
-}
 const findArticle = () => {
   const param = {
     model: {
       title: searchText.value,
     },
-    pageSize: 10,
-    pageIndex: 1
+    pageSize: pageSize.value,
+    pageIndex: pageIndex.value
   }
-  a_getArticle(param).then(res => {
+  a_getArticleList(param).then(res => {
     console.log('res', res)
-    const { model } = res
+    const { model = [] } = res
     artList.value = model || []
     curArticle.value = model.length ? model[0] : null
+    totalCount.value = res.totalCount
   }).catch(err => {
     console.log(err)
     eventEmitts.emit('$message.error', err)
   })
-  // const param = {
-  //   pageIndex: 1,
-  //   pageSize: 10,
-  //   model: {}
-  // }
-  // post('/pcs/sos/v2/shops', { data: param }).then(res => {
-  //   console.log(res)
-  // })
 }
+const handleSearch = () => {
+  pageIndex.value = 1
+  findArticle()
+}
+const handleMore = () => {
+  pageIndex.value ++
+  findArticle()
+}
+
 const router = useRouter()
 const toBoss = () => {
   router.push('/boss')
+}
+
+const handleSelectDoc = (idx: index) => {
+  curArticleIdx.value = idx
 }
 </script>
 
@@ -65,7 +70,7 @@ const toBoss = () => {
   <div class="main-left-wrap">
     <div :class="['main-left', { 'is-shrink': shrink }]">
       <ul>
-        <n-button type="primary" @click="toBoss"></n-button>
+        <n-button type="primary" @click="toBoss">toBoss</n-button>
         <n-button type="primary" @click="shrink = !shrink">expand</n-button>
         <n-button class="mt4" type="primary" @click="changeTheme">切换</n-button>
         <n-button class="mt4" type="primary" @click="messageFn">message</n-button>
@@ -85,32 +90,35 @@ const toBoss = () => {
           <i class="iconfont icon-bxl-vuejs"></i>
           
         </li>
-        <li>
-          
-        </li>
       </ul>
     </div>
     <div class="main-content">
       <div class="search">
         <n-input v-model:value="searchText"></n-input>
-        <n-button type="primary" @click="addArticleFn">新增文章</n-button>
-        <n-button type="primary" @click="findArticle">搜索</n-button>
+        <n-button type="primary" @click="handleSearch">搜索</n-button>
       </div>
       <doc-template
         :data="artList[curArticleIdx]">
       </doc-template>
-      <div class="flex-box mt20">
+      <div class="bottom-card">
+        <div class="flex-box flex1">
+          <right-card
+            class="flex-1"
+            :class="{ 'ml10': idx > 0 }"
+            v-for="(item, idx) in artList"
+            :key="idx"
+            :title="item.title"
+            :desc="item.desc"
+            @click="handleSelectDoc(idx)">
+          </right-card>
+        </div>
         <right-card
-          class="flex-1"
-          :class="{ 'ml10': idx > 0 }"
-          v-for="(item, idx) in artList"
-          :key="idx"
-          :title="item.title"
-          :desc="item.desc">
+          class="more"
+          @click="handleMore">
+          更多
         </right-card>
       </div>
     </div>
-    <add-article v-model:show="addArtModal"></add-article>
   </div>
 </template>
 
@@ -166,6 +174,21 @@ const toBoss = () => {
     padding: 10px 30px 0 30px;
     .search {
       margin-bottom: 20px;
+      display: flex;
+      :deep(.n-button) {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .bottom-card {
+    display: flex;
+    .more {
+      margin-left: 12px;
+      width: 16px;
+    }
+    :deep(.card-container) {
+      cursor: pointer;
     }
   }
 }
