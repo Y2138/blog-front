@@ -1,3 +1,11 @@
+<!--
+ * @Author: Y2138 y1967581564@163.com
+ * @Date: 2022-09-14 17:08:11
+ * @LastEditors: Y2138 y1967581564@163.com
+ * @LastEditTime: 2022-12-28 15:28:47
+ * @FilePath: \front\src\components\rightCard.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <script setup lang="ts">
 const props = defineProps({
   title: {
@@ -27,7 +35,7 @@ const props = defineProps({
   <div class="card-container" :class="{'has-shadow': props.shadow}">
     <slot>
       <div class="flex-box alg-c jus-b pb-5">
-        <div class="card-title">
+        <div class="card-title text-ellipsis">
           <slot name="title">
             {{ props.title }}
           </slot>
@@ -39,12 +47,12 @@ const props = defineProps({
         </div>
       </div>
       <div class="flex-box alg-c jus-b pt-5">
-        <div class="card-desc">
+        <div class="card-desc text-ellipsis">
           <slot name="desc">
             {{ props.desc }}
           </slot>
         </div>
-        <div class="card-end">
+        <div class="card-end text-ellipsis">
           <slot name="tip">
             {{ props.tip }}
           </slot>

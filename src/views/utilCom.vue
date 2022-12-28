@@ -6,9 +6,9 @@ const message = useMessage()
 const notification = useNotification()
 const nTypes = ['error', 'info', 'success', 'warning']
 nTypes.forEach(t => {
-  eventEmitts.on(`$message.${t}`, <any>message[t])
-  eventEmitts.on(`$alert.${t}`, <any>dialog[t])
-  eventEmitts.on(`$notification.${t}`, <any>notification[t])
+  eventEmitts.on(`$message.${t}`, message[t])
+  eventEmitts.on(`$alert.${t}`, dialog[t])
+  eventEmitts.on(`$notification.${t}`, notification[t])
 })
 console.log(eventEmitts.events)
 </script>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { BasicResponseModel, PageReqDataModel, PageResponseModel } from './utils'
+import { changeParamToUrl } from './util'
 import eventEmitts from '@/utils/eventEmitter'
 const instance: AxiosInstance = axios.create({
   headers: {
@@ -29,7 +30,7 @@ instance.interceptors.response.use((res: AxiosResponse) => {
   const { response } = error
   if (response === undefined) {
     console.log('接口请求异常')
-    eventEmitts.emit('message.error', '接口请求异常')
+    eventEmitts.emit('$message.error', '接口请求异常')
     return Promise.resolve({
       success: false,
       errorMessage: '接口请求异常',
@@ -37,7 +38,7 @@ instance.interceptors.response.use((res: AxiosResponse) => {
   } else {
     const { status } = response
     const errMsg = dealStatusCode(status)
-    eventEmitts.emit('message.error', errMsg)
+    eventEmitts.emit('$message.error', errMsg)
     return Promise.resolve({
       success: false,
       status: response?.status,
@@ -91,8 +92,11 @@ function dealStatusCode(status: number) {
 export const request = <D = any, R = any>(config: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
   return instance.request(config)
 }
-
-export const get = <D = any, R = any>(url: string, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
+// get请求参数直接拼接
+export const get = <D = any, R = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
+  if (data) {
+    url += changeParamToUrl(data)
+  }
   return instance.get(url, config)
 }
 export const post = <D = any, R = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {

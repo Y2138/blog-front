@@ -10,21 +10,28 @@ const art = computed(() => {
 })
 </script>
 <template>
-  <header class="header cbox">
-    <div class="title">{{ art.title || '' }}</div>
-    <p class="desc">
-      {{ art.desc || '' }}
-    </p>
-  </header>
-  <main class="main cbox">
-    <n-scrollbar>
-      <md :text="art.content" :showEditor="false"></md>
-    </n-scrollbar>
-  </main>
-  <!-- <footer class="footer cbox">这是footer</footer> -->
+  <section class="document-main">
+    <header class="header cbox">
+      <div class="title">{{ art.title || '' }}</div>
+      <p class="desc">
+        {{ art.desc || '' }}
+      </p>
+    </header>
+    <main class="main cbox">
+      <n-scrollbar>
+        <md :text="art.content" :showEditor="false"></md>
+      </n-scrollbar>
+    </main>
+    <!-- <footer class="footer cbox">这是footer</footer> -->
+  </section>
 </template>
 
 <style lang="scss" scoped>
+.document-main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 header, main, footer {
   border-radius: 20px;
   background-color: var(--background-dark);
@@ -47,8 +54,8 @@ header, main, footer {
   }
 }
 .main {
-  height: 400px;
-  margin: 20px 0;
+  flex: 1;
+  margin-top: 20px;
   p {
     margin: 0;
     word-break: break-all;

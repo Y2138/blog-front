@@ -37,19 +37,22 @@ div {
     background-color: var(--background-dark);
     padding: 12px;
   }
-  &.flex-box {
-    display: flex;
-    align-items: center;
-  }
-  &.alg-c {
-    align-items: center;
-  }
-  &.jus-b {
-    justify-content: space-between;
-  }
-  &.jus-c {
-    justify-content: center;
-  }
+}
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+.alg-c {
+  align-items: center;
+}
+.jus-a {
+  justify-content: space-around;
+}
+.jus-b {
+  justify-content: space-between;
+}
+.jus-c {
+  justify-content: center;
 }
 @for $k from 1 through 4 {
   .flex#{$k} {
@@ -113,4 +116,15 @@ div {
     margin-top: 5px * $j;
     margin-bottom: 5px * $j;
   }
+}
+
+// 单行省略
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;//文本超出隐藏
+  text-overflow: ellipsis;//文本超出省略号替代
+}
+// pointer
+.pointer {
+  cursor: pointer;
 }

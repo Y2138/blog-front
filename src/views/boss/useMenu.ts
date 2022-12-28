@@ -1,8 +1,10 @@
-import { MentionOption } from 'naive-ui'
+import { MentionOption, NIcon } from 'naive-ui'
 import router from '@/router/index'
 import { h } from 'vue';
 import { MenuTabs, useMenuStore } from '@/store/menuStore'
 import { storeToRefs } from 'pinia';
+import { RouterLink } from 'vue-router'
+import { ArrowUndoSharp } from '@vicons/ionicons5'
 
 const menuStore = useMenuStore()
 const { menuTabs } = storeToRefs(menuStore)
@@ -15,21 +17,23 @@ const handleTabChange = (tab: MenuTabs) => {
 const handleCloseTab = (tab: MenuTabs) => {
   menuStore.closeTab(tab)
 }
+function renderIcon (icon: Component) {
+  return () => h(NIcon, null, { default: () => h(icon) })
+}
 const menuOptions = ref<MentionOption>([
   {
     label: () =>
       h(
-        'p',
+        RouterLink,
         {
-          onClick: () => handleTabChange({
-            path: '/boss/index',
-            name: '家',
-            checked: true
-          })
+          to: {
+            name: 'docs',
+          }
         },
-        { default: () => '回家' }
+        { default: () => '返回前台' }
       ),
-    key: 'go-back-home',
+    key: 'go-back-docs',
+    icon: renderIcon(ArrowUndoSharp)
   },
   {
     key: 'divider-1',
@@ -42,13 +46,24 @@ const menuOptions = ref<MentionOption>([
   },
   {
     label: () =>
+      h(
+        'p',
+        {
+          onClick: () => handleTabChange({
+            path: '/boss/index',
+            name: '家',
+            checked: true
+          })
+        },
+        { default: () => '回到主页面' }
+      ),
+    key: 'go-back-home',
+  },
+  {
+    label: () =>
     h(
-      'a',
-      {
-        href: 'https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F',
-        target: '_blank',
-        rel: 'noopenner noreferrer'
-      },
+      'div',
+      {},
       '且听风吟'
     ),
     key: 'pinball-1973',
