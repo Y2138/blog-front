@@ -42,17 +42,16 @@ const findArticle = () => {
     pageIndex: pageIndex.value
   }
   a_getArticleList(param).then(res => {
-    console.log('res', res)
-    const { model = [] } = res
-    artList.value = artList.value.concat(model || [])
-    totalCount.value = res.totalCount
-  }).catch(err => {
-    console.log(err)
-    messageFn(err)
+    if (res.success) {
+      const { model = [] } = res
+      artList.value = artList.value.concat(model || [])
+      totalCount.value = res.totalCount
+    }
   })
 }
 const handleSearch = () => {
   pageIndex.value = 1
+  artList.value = []
   findArticle()
 }
 const handleMore = () => {
@@ -106,10 +105,6 @@ const handleSelectDoc = (idx: index) => {
           </dl>
         </div>
         <div class="main-content">
-          <div class="search">
-            <n-input v-model:value="searchText"></n-input>
-            <n-button type="primary" @click="handleSearch">搜索</n-button>
-          </div>
           <template v-if="artList && artList.length">
             <doc-template
               :data="artList[curArticleIdx]">
@@ -129,6 +124,10 @@ const handleSelectDoc = (idx: index) => {
           tip="哪个是我">
         </right-card>
         <n-divider />
+        <div class="search">
+          <n-input v-model:value="searchText"></n-input>
+          <n-button type="primary" @click="handleSearch">搜索</n-button>
+        </div>
         <n-scrollbar>
           <right-card
             class="card-box"
@@ -220,18 +219,11 @@ const handleSelectDoc = (idx: index) => {
     flex: 1;
     min-width: 0;
     padding: 10px 30px 0 30px;
-    .search {
-      margin-bottom: 20px;
-      display: flex;
-      :deep(.n-button) {
-        margin-left: 10px;
-      }
-    }
   }
 }
 .main-right {
   width: 25%;
-  margin: 12px 0;
+  margin-top: 12px 0;
   padding: 12px;
   display: flex;
   align-items: center;
@@ -248,6 +240,14 @@ const handleSelectDoc = (idx: index) => {
     }
     .time {
       font-size: 24px;
+    }
+  }
+  .search {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    :deep(.n-button) {
+      margin-left: 10px;
     }
   }
   .card-box {

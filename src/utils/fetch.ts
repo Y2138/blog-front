@@ -1,51 +1,154 @@
 import axios from 'axios'
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { BasicResponseModel, PageReqDataModel, PageResponseModel } from './utils'
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse, Canceler } from 'axios'
+import { FetchConfig, BasicResponseModel, PageReqDataModel, PageResponseModel } from './utils'
 import { changeParamToUrl } from './util'
 import eventEmitts from '@/utils/eventEmitter'
-const instance: AxiosInstance = axios.create({
-  headers: {
-    "Content-Type": "application/json;charset=UTF-8",
-  },
-  // TODO 本地测试
-  baseURL: 'http://localhost:3000',
-  timeout: 5000,
-})
-instance.interceptors.request.use((config: AxiosRequestConfig) => {
-  const { data } = config
-  // TODO 配置config.headers的内容
-  // config.headers!['Auth'] = 'UkJTLVBDCtfB4jeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHU1pOMTY3ODkiLCJjcmVhdGVkIjoxNjYwODc2MjkxNTEwLCJleHAiOjE2NjExMzU0OTF9.kNBKluRHfms3CYRhuujeZZCrxuPsSgUgV8G6UhsJWH6Xj5HSNJy1lar8EkwO9uoehLl77w_IcAwbL30QG98n5w'
-  // config.headers!['userview'] = 1
-  return config
-}, (error: any) => {
-  console.log(error)
-  return Promise.reject(error)
-})
 
-instance.interceptors.response.use((res: AxiosResponse) => {
-  const { data } = res
-  console.log('success: ', res)
-  return Promise.resolve(data)
-}, (error: any) => {
-  const { response } = error
-  if (response === undefined) {
-    console.log('接口请求异常')
-    eventEmitts.emit('$message.error', '接口请求异常')
-    return Promise.resolve({
-      success: false,
-      errorMessage: '接口请求异常',
+const defaultConfig: FetchConfig = {
+  cancelAgainRequest: true,
+  showErrorMsg: true,
+  retry: true,
+  maskLoading: false
+}
+const cancelToken = axios.CancelToken
+// pending
+type Pending = {
+  cutUrl: string,
+  cancelHandler: Canceler
+}
+class AxiosPending {
+  pendingList: Pending[] = []
+  constructor(list: Pending[]) {
+    this.pendingList = list
+  }
+  // 生成唯一编码
+  dealConfigUrl(config: AxiosRequestConfig): string {
+    const { url, data, method } = config
+    let dataStr = JSON.stringify(data)
+    // 用url、dataStr、method生成请求的唯一编码
+    return `${url}&${dataStr}&${method}`.replace(/\//g, '')
+  }
+  // 添加pending，若存在重复则直接取消当前请求
+  addPending(config: AxiosRequestConfig): void {
+    // 临时存放接口组合 path + data
+    config.cancelToken = new cancelToken(cancel => {
+      let cutUrl = this.dealConfigUrl(config)
+      // 校验当前pending里是否存在，存在的话直接cancel，不存在则塞入
+      let checkIndex = this.pendingList.findIndex(item => item.cutUrl === cutUrl)
+      if (checkIndex > -1) {
+        const { cutUrl, cancelHandler } = this.pendingList[checkIndex]
+        cancelHandler(cutUrl)
+        this.pendingList.splice(checkIndex)
+      } else {
+        this.pendingList.push({
+          cutUrl,
+          cancelHandler: cancel
+        })
+      }
     })
-  } else {
-    const { status } = response
-    const errMsg = dealStatusCode(status)
-    eventEmitts.emit('$message.error', errMsg)
+  }
+  // 移除pending
+  removePending(config: AxiosRequestConfig) {
+    let cutUrl = this.dealConfigUrl(config)
+    let pendingIndex = this.pendingList.findIndex(item => item.cutUrl === cutUrl)
+    if (pendingIndex > -1) {
+      this.pendingList.splice(pendingIndex)
+    }
+  }
+}
+const useAxios = (fetchConfig = defaultConfig) => {
+  const axiosPending = new AxiosPending([])
+  const instance: AxiosInstance = axios.create({
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    // TODO 本地测试
+    baseURL: 'http://localhost:3000',
+    timeout: 5000,
+  })
+  instance.interceptors.request.use((config: AxiosRequestConfig) => {
+    const { url, data } = config
+    // TODO 配置config.headers的内容
+    // config.headers!['Auth'] = 'UkJTLVBDCtfB4jeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHU1pOMTY3ODkiLCJjcmVhdGVkIjoxNjYwODc2MjkxNTEwLCJleHAiOjE2NjExMzU0OTF9.kNBKluRHfms3CYRhuujeZZCrxuPsSgUgV8G6UhsJWH6Xj5HSNJy1lar8EkwO9uoehLl77w_IcAwbL30QG98n5w'
+    // config.headers!['userview'] = 1
+
+    // 取消重复请求
+    if (fetchConfig.cancelAgainRequest) {
+      axiosPending.addPending(config)
+    }
+    return config
+  }, (error: any) => {
+    console.log(error)
+    return Promise.reject(error)
+  })
+  
+  instance.interceptors.response.use((res: AxiosResponse) => {
+    if (fetchConfig.cancelAgainRequest) {
+      // 移出请求队列
+      axiosPending.removePending(res.config)
+    }
+    const { data } = res
+    if (fetchConfig.showErrorMsg) {
+      if (data.success === false) {
+        eventEmitts.emit('$message.error', data.errorMsg || '请求异常，请稍后再试')
+      }
+    }
+    return Promise.resolve(data)
+  }, (error: any) => {
+    console.error(error)
+    const { response } = error
+    let errMsg = ''
+    if (fetchConfig.cancelAgainRequest) {
+      // 移出请求队列
+      error.config && axiosPending.removePending(error.config)
+    }
+    if (error.code === 'ERR_CANCELED') {
+      // 取消请求不做任何处理
+      errMsg = '请求取消'
+    } else {
+      if (response === undefined) {
+        if (fetchConfig.showErrorMsg) {
+          eventEmitts.emit('$message.error', '接口请求异常')
+        }
+      } else {
+        // 处理响应状态码
+        errMsg = dealStatusCode(response.status)
+        if (fetchConfig.showErrorMsg) {
+          eventEmitts.emit('$message.error', errMsg)
+        }
+      }
+    }
     return Promise.resolve({
       success: false,
       status: response?.status,
       errorMessage: errMsg
     })
+  })
+   // D-入参类型，R-出参data类型
+  const request = <D = any, R = any>(config: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
+    return instance.request(config)
   }
-})
+  // get请求参数直接拼接
+  const get = <D = any, R = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
+    if (data) {
+      url += changeParamToUrl(data)
+    }
+    return instance.get(url, config)
+  }
+  const post = <D = any, R = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
+    return instance.post(url, data, config)
+  }
+
+  const pagePost = <D = any, R = any>(url: string, data?: PageReqDataModel<D>, config?: AxiosRequestConfig<PageReqDataModel<D>>): Promise<PageResponseModel<R>> => {
+    return instance.post(url, data, config)
+  }
+  return {
+    request,
+    get,
+    post,
+    pagePost
+  }
+}
 
 function dealStatusCode(status: number) {
   switch (status) {
@@ -88,21 +191,4 @@ function dealStatusCode(status: number) {
   }
 }
 
-// D-入参类型，R-出参data类型
-export const request = <D = any, R = any>(config: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
-  return instance.request(config)
-}
-// get请求参数直接拼接
-export const get = <D = any, R = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
-  if (data) {
-    url += changeParamToUrl(data)
-  }
-  return instance.get(url, config)
-}
-export const post = <D = any, R = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<BasicResponseModel<R>> => {
-  return instance.post(url, data, config)
-}
-
-export const pagePost = <D = any, R = any>(url: string, data?: PageReqDataModel<D>, config?: AxiosRequestConfig<PageReqDataModel<D>>): Promise<PageResponseModel<R>> => {
-  return instance.post(url, data, config)
-}
+export default useAxios
